@@ -48,5 +48,43 @@
 
 ![test nginx on webserver](./images/welcome-to-nginx.png)
 
+---
+---
+## STEP 2 — INSTALLING MYSQL
+### We will install a DBMS to be able to store and manage data for the site in a relational database.
+### Install MySQL using this command:
+>` sudo apt install mysql-server`
+### Type Y and click Enter to continue the download
+![installing MySQL](./images/installing-mysql.png)
+
+### When the installation is complete, log in to the MySQL console using this command:
+>` sudo mysql`
+
+### This will connect to the MySQL server as the administrative database user root
+
+![login to mysql](./images/login-mysql.png)
+
+### Set password as "PassWord.1" for root user, using this command:
+>` ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
+
+![root user password](./images/PassWord.1.png)
+
+### Then exit the MySQL shell with this command:
+>` mysql> exit`
+![exit mysql shell](./images/exit-mysql.png)
+
+### Then run this command to start the interactive script:
+>` sudo mysql_secure_installation`
+### Set secure root password
+![setting secure root password](./images/set-secure-mysql-root-password.png)
+![setting secure root password continued](./images/set-secure-mysql-root-password2.png)
+
+### Then test if you’re able to log in to the MySQL console using this command:
+>`sudo mysql -p`
+![verify new password works](./images/verify-new-password.png)
+
+### Then exit with this command:
+>` mysql> exit`
+
 
 
