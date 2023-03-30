@@ -93,5 +93,66 @@
 #### Type Y and click Enter to continue with the installation
 ![installing php-fpm and php-mysql](./images/installing-php.png)
 
+## STEP 4 — CONFIGURING NGINX TO USE PHP PROCESSOR
+
+### We can create server blocks on the Nginx web server, to encapsulate configuration details. We'll use 'projectLEMP' here.
+
+### First, we create a root web directory by creating a directory in '/var/www/', using this command:
+>` sudo mkdir /var/www/projectLEMP`
+
+### Next, we change ownership of the directory, using this command:
+>`sudo chown -R $USER:$USER /var/www/projectLEMP`
+![create projectLEMP directory](./images/mk-projectLEMP-dir.png)
+
+### Then, open a new configuration file, using this command:
+>`sudo nano /etc/nginx/sites-available/projectLEMP`
+
+#### This will open a blank file, then we post the following in it:
 
 
+#/etc/nginx/sites-available/projectLEMP
+
+server {
+    listen 80;
+    server_name projectLEMP www.projectLEMP;
+    root /var/www/projectLEMP;
+
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+}`
+
+![congigure nginx](./images/configure-nginx.png)
+#### click CTRL + X and then Y and Enter, to exit edit mode.
+### We activate the configuration by linking to the config file from Nginx’s sites-enabled directory, using this command:
+>`sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
+### Then test the configuration using:
+>`sudo nginx -t`
+![test configuration](./images/set-secure-mysql-root-password2.png)
+
+### We then disable default Nginx host that is currently configured to listen on port 80, usimg this command:
+>` sudo unlink /etc/nginx/sites-enabled/default`
+
+### Then reload Nginx to aplly changes, using this command:
+>`sudo systemctl reload nginx`
+![desiable default Nginx host and reload](./images/unlink-and-reload.png)
+
+### Next, we create an index.html file in web root location,to test the new server block, using this command:
+>`sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
+
+### Now go to your browser and try to open your website URL using IP address:
+>`http://<Public-IP-Address>:80`
+![test new server](./images/new-server.png)
+#### If you see the text from ‘echo’ command you wrote to index.html file, then it means your Nginx site is working as expected.
