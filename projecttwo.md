@@ -24,7 +24,7 @@
 ### This automatically connects to the instance when you click Enter
 ![connect to instance](./images/connect-to-instance.png)
 
-## Step 1 – Installing the Nginx Web Server
+## INSTALLING THE NGINX WEB SERVER 
 ### Install the Nginx Web Server to display web pages to site visitors.
 
 ### We first update the server's package, before we download the nginx web server, using this command:
@@ -50,7 +50,7 @@
 
 ---
 ---
-## STEP 2 — INSTALLING MYSQL
+## INSTALLING MYSQL
 ### We will install a DBMS to be able to store and manage data for the site in a relational database.
 ### Install MySQL using this command:
 >` sudo apt install mysql-server`
@@ -93,7 +93,7 @@
 #### Type Y and click Enter to continue with the installation
 ![installing php-fpm and php-mysql](./images/installing-php.png)
 
-## STEP 4 — CONFIGURING NGINX TO USE PHP PROCESSOR
+## CONFIGURING NGINX TO USE PHP PROCESSOR
 
 ### We can create server blocks on the Nginx web server, to encapsulate configuration details. We'll use 'projectLEMP' here.
 
@@ -156,3 +156,19 @@ server {
 >`http://<Public-IP-Address>:80`
 ![test new server](./images/new-server.png)
 #### If you see the text from ‘echo’ command you wrote to index.html file, then it means your Nginx site is working as expected.
+
+
+## TESTING PHP WITH NGINX
+### Now that LEMP is set up, to validate that Nginx can correctly hand .php files off to your PHP processor, we create a test PHP file in the document root.
+#### To do that, open a new file called 'info.php' within the document root, using this command:
+>`sudo nano /var/www/projectLEMP/info.php`
+### Enter the following lines into the new file:
+>`<?php
+phpinfo();`
+
+![info.php file](./images/validate-nginx.png)
+#### Save file then reload the webpage to see the effect
+![access web page](./images/access-web.png)
+
+### The remove the file ysing this command:
+>`sudo rm /var/www/your_domain/info.php`
